@@ -1,0 +1,36 @@
+#include <iostream>
+#include <thread>
+#include <vector>
+#include<unistd.h>
+class A{
+    public:
+    int x;
+    int *y;
+    void print_me(){
+        std::cout<<"Value of y:"<<*y<<"\n";
+        std::cout<<"the value of x : "<<x<<" \n";
+
+    }
+
+    
+};
+std::thread t1;
+void test(A *g){
+     sleep(4);
+    g->print_me();
+    
+}
+void runProgram(){
+   static A a;
+   a.x=34;
+   int b=10;
+    a.y=&b;
+    t1=std::thread(test,&a);
+    // sleep(5);
+
+}
+int main(){
+    runProgram();
+   
+ t1.join();
+}
